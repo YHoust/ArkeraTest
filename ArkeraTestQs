@@ -1,0 +1,53 @@
+-------------------------------------Q1--------------------------------------------
+from unittest import TestCase
+
+#The solution to this problem is to create a copy of the dictionary so that we do not cross reference the value in ddd
+def increment_dictionary_values(d,i):
+    copy = dict(d)
+    for k ,v in copy.items():
+        copy[k] = v + i
+    return copy
+
+class TestIncrementDictionaryValues(TestCase):
+       
+    def test_increment_dictionary_values(self):
+        d = {'a':1}
+        dd = increment_dictionary_values(d,1)
+        ddd = increment_dictionary_values(d,-1)
+        self.assertEqual(dd['a'], 2)
+        self.assertEqual(ddd['a'], 0)
+
+#This is so that we can print out what the function is doing 
+if __name__ == "__main__":
+    d = {'a':1}
+    
+    dd = increment_dictionary_values(d,1)
+    for k,v in dd.items():
+        print(k,v)
+        
+    ddd = increment_dictionary_values(d,-1)
+    for k,v in ddd.items(): 
+        print(k,v)
+        
+-----------------------------------Q2-------------------------------------------
+#What i would do in this situation is run through the price list and calculate the loss. 
+#I would store the max value of the loss and compare this to the value currently being calculated.
+
+import numpy as np
+import random
+
+#create a small test array
+pricesLst1 = [[random.randint(1,100),random.randint(1,100)] for i in range(10)]
+
+def return_largest_loss(pricesLst):
+    maxLoss = 0
+    for i in range(np.size(pricesLst,0)):
+        loss = pricesLst[i][1] - pricesLst[i][0]      
+        if loss > maxLoss:
+            maxLoss = loss
+    print(maxLoss)
+        
+return_largest_loss(pricesLst1)
+
+#Exception i would test for would be if values are missing from the table the table. However I have not learnt how to handle
+#exceptions in python
